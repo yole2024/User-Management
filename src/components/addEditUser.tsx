@@ -1,4 +1,4 @@
-import {Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Box, CircularProgress, Typography} from '@mui/material';
+import {Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Box, CircularProgress} from '@mui/material';
 import { IUser } from '../interfaces/userInterface';
 import { useAddEditUser } from '../hooks/useAddEditUser';
 
@@ -9,7 +9,7 @@ interface AddEditUserProps {
 }
 
 const AddEditUser: React.FC<AddEditUserProps> = ({ open, onClose, user }) => {
-  const { fields, formErrors, saveLoading, handleSubmit } = useAddEditUser(onClose, user);
+  const { fields,  saveLoading, handleSubmit } = useAddEditUser(onClose, user);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
@@ -28,19 +28,14 @@ const AddEditUser: React.FC<AddEditUserProps> = ({ open, onClose, user }) => {
               {...fields.password}
             />
           )}
-          {Object.entries(formErrors).map(([field, message]) => (
-            <Typography key={field} color="error" variant="body2" sx={{ mt: 1 }}>
-              {message}
-            </Typography>
-          ))}
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} disabled={saveLoading}>
-          ביטול
+        <Button onClick={onClose} disabled={saveLoading} sx={{ outline: 'none', '&:focus': { outline: 'none' }}}>
+        cancel
         </Button>
-        <Button onClick={handleSubmit} variant="contained" color="primary" disabled={saveLoading}>
-          {saveLoading ? <CircularProgress size={20} /> : 'שמירה'}
+        <Button onClick={handleSubmit} variant="contained" color="primary" disabled={saveLoading} sx={{ outline: 'none', '&:focus': { outline: 'none' }}}>
+          {saveLoading ? <CircularProgress size={20} /> : 'Add'}
         </Button>
       </DialogActions>
     </Dialog>

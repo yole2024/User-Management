@@ -1,4 +1,4 @@
-import { IUser, IUserAdding } from "../interfaces/userInterface";
+import { IUserAdding } from "../interfaces/userInterface";
 import baseService from "./baseService";
 
 const MODULE_PATH = `/api/users`

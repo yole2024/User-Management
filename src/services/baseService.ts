@@ -33,7 +33,7 @@ const baseService = async (
     } catch (error: any) {    
       if (axios.isAxiosError(error)) { 
         if (error.code === 'ERR_NETWORK') {
-          response.err = { message: "בעיית רשת: החיבור לאינטרנט לא תקין" };
+          response.err = { message: "Network problem: Internet connection is not working properly." };
         } else {
           response.err = {
             message: error.response?.data?.error || error.message,
@@ -41,7 +41,7 @@ const baseService = async (
           };
         }
       } else {
-        response.err = { message: "אירעה שגיאה כללית" };
+        response.err = { message: "A general error occurred." };
       }
     }
     return response;

@@ -30,14 +30,13 @@ export const useLogin = () => {
                         name: res.data.name,
                         token: res.data.token,
                     })
-                );
-                
+                );     
                 navigate('/users') ;   
             }else{
-                setError(err?.error ||'תהליך הכניסה נכשל'); 
+                setError(err?.error ||'The login process failed.'); 
             }
         }catch(error) {
-            setError("ⓘ שגיאה במהלך הכניסה. נסה שוב.");
+            setError("ⓘ Error while logging in. Please try again.");
             console.error('Error during login', error);
         }finally{
             setIsLoading(false);

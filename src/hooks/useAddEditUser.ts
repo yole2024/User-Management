@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IUser, IUserAdding, IUserValidate } from "../interfaces/userInterface";
+import { IUser, IUserAdding } from "../interfaces/userInterface";
 import * as service from '../services/userListService';
 import { addUser, updateUser } from '../store/usersSlice';
 import { useDispatch } from 'react-redux';
@@ -10,7 +10,6 @@ export const useAddEditUser = (
 ) => {
   const dispatch = useDispatch();
 
-  // State for form fields
   const [formState, setFormState] = useState({
     username: '',
     fullName: '',
@@ -18,20 +17,16 @@ export const useAddEditUser = (
     password: '',
   });
 
-  // State for form errors
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-
-  // State for loading and general error
   const [saveLoading, setSaveLoading] = useState(false);
 
-  // Populate fields when editing a user or clearing them
   useEffect(() => {
     if (user) {
       setFormState({
         username: user.username || '',
         fullName: user.fullName || '',
         email: user.email || '',
-        password: '', // Leave password empty for security reasons
+        password: '',
       });
     } else {
       setFormState({
@@ -41,22 +36,20 @@ export const useAddEditUser = (
         password: '',
       });
     }
-    setFormErrors({}); // Clear errors on user change
+    setFormErrors({}); 
   }, [user]);
 
-  // Validate fields and return a boolean
-  const validateFields = (data: IUserValidate): boolean => {
+  const validateFields = (data: IUserAdding): boolean => {
     const errors: Record<string, string> = {};
     if (!data.username) errors.username = "Username is required.";
     if (!data.fullName) errors.fullName = "Full Name is required.";
     if (!data.email) errors.email = "Email is required.";
-    if (!user && !data.password) errors.password = "Password is required."; // Only validate password when adding a user
+    if (!user && !data.password) errors.password = "Password is required.";
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  // Handle save operation
   const onSave = async () => {
     const userData: IUserAdding = {
       username: formState.username,
@@ -83,12 +76,10 @@ export const useAddEditUser = (
     setSaveLoading(false);
   };
 
-  // Update form state dynamically
   const updateFormField = (key: keyof typeof formState, value: string) => {
     setFormState((prev) => ({ ...prev, [key]: value }));
   };
 
-  // Fields object to simplify rendering in the component
   const fields = {
     username: {
       value: formState.username,
