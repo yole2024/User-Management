@@ -35,7 +35,7 @@ const AddEditUser: React.FC<AddEditUserProps> = ({ open, onClose, user }) => {
         cancel
         </Button>
         <Button onClick={handleSubmit} variant="contained" color="primary" disabled={saveLoading} sx={{ outline: 'none', '&:focus': { outline: 'none' }}}>
-          {saveLoading ? <CircularProgress size={20} /> : 'Add'}
+          {saveLoading ? <CircularProgress size={20} /> : user ? 'Save' : 'Add'}
         </Button>
       </DialogActions>
     </Dialog>
